@@ -12,6 +12,7 @@ import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.util.concurrent.atomic.AtomicBoolean
+import org.json.JSONObject
 
 /**
  * LAN client: UDP discovery listener + TCP session joiner.
@@ -125,11 +126,13 @@ class LanClient(
         }, "lan-client-session").also { readerThread = it; it.start() }
     }
 
-    fun send(payload: String): Boolean = try {
+    fun send(payload: String): Boolean {
         val w = writer ?: return false
-        synchronized(w) { w.write(payload); w.flush() }
-        true
-    } catch (t: Throwable) { false }
+        return try {
+            synchronized(w) { w.write(payload); w.flush() }
+            true
+        } catch (t: Throwable) { false }
+    }
 
     fun sendChat(msg: String) = send(LanProtocol.chat(nick, msg))
     fun sendReady(ready: Boolean) = send(LanProtocol.ready(nick, ready))

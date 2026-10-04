@@ -14,6 +14,7 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
+import org.json.JSONObject
 
 /**
  * LAN host: TCP session server + UDP discovery announcer.
@@ -70,7 +71,7 @@ class LanHost(
                     if (running.get()) main.post { listener.onError(t.message ?: "accept") }
                 }
             }
-        }, "lan-host-accept").start()
+        }, "lan-host-accept").also { it.start() }
     }
 
     private fun handleNewClient(socket: Socket) {
@@ -182,7 +183,7 @@ class LanHost(
                 }
                 try { Thread.sleep(2000) } catch (t: InterruptedException) { break }
             }
-        }, "lan-host-announce").start()
+        }, "lan-host-announce").also { it.start() }
     }
 
     fun stop() {

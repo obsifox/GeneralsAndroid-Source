@@ -38,11 +38,13 @@ object Ui {
         }
     }
 
-    fun dp(v: View, value: Int): Int =
-        (value * v.resources.displayMetrics.density + 0.5f).toInt()
+    fun dp(c: android.content.Context, value: Int): Int =
+        (value * c.resources.displayMetrics.density + 0.5f).toInt()
 
-    fun linear(v: View, vertical: Boolean = true): LinearLayout {
-        val l = LinearLayout(v.context)
+    fun dp(v: View, value: Int): Int = dp(v.context, value)
+
+    fun linear(c: android.content.Context, vertical: Boolean = true): LinearLayout {
+        val l = LinearLayout(c)
         l.orientation = if (vertical) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
         return l
     }

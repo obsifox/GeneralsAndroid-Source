@@ -86,7 +86,7 @@ object GameFilesValidator {
         if (csf == null) errors.add(res(context, "validate_missing_csf"))
 
         val ok = bigCount >= REQUIRED_BIG_MIN // مهر نسخه/CSF هشدار هستند نه رد مطلق
-        ValidationResult(ok, bigCount, marker, csf, errors, notes)
+        return ValidationResult(ok, bigCount, marker, csf, errors, notes)
     }
 
     private fun res(context: Context, key: String, vararg args: Any): String =
