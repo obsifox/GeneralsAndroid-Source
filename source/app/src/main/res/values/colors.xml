@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dark">#0E1116</color>
+    <color name="bg_panel">#161C24</color>
+    <color name="bg_card">#1C2530</color>
+    <color name="accent">#E8B23A</color>          <!-- طلایی جنرالزی -->
+    <color name="accent_dim">#8A6A22</color>
+    <color name="text_primary">#F2F4F7</color>
+    <color name="text_secondary">#9AA5B1</color>
+    <color name="ok_green">#4CAF50</color>
+    <color name="warn_red">#E5534B</color>
+    <color name="status_bar">#0A0D11</color>
+</resources>

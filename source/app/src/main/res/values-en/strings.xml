@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Generals Android</string>
+    <string name="app_subtitle">Native Persian port — unofficial community build</string>
+
+    <string name="menu_campaign">Campaign</string>
+    <string name="menu_skirmish">Skirmish</string>
+    <string name="menu_challenge">Generals Challenge</string>
+    <string name="menu_multiplayer">Multiplayer (Hotspot)</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_controls">Controls</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_mods">Mods</string>
+    <string name="menu_game_files">Game Files</string>
+    <string name="menu_diagnostics">Diagnostics</string>
+    <string name="menu_about">About</string>
+
+    <string name="data_status_title">Game files status</string>
+    <string name="data_status_ok">Game files ready ✓</string>
+    <string name="data_status_missing">Game files not imported yet</string>
+    <string name="data_status_invalid">Game files incomplete or invalid</string>
+    <string name="data_status_action">Pick / re-validate</string>
+    <string name="data_path_label">Data path:</string>
+    <string name="data_none">—</string>
+
+    <string name="wizard_title">First-run setup</string>
+    <string name="wizard_welcome">Welcome to Generals Android</string>
+    <string name="wizard_welcome_body">This app is the open-source game engine and does NOT include game files. Import your legally obtained copy (Generals or Zero Hour). No EA assets are bundled.</string>
+    <string name="wizard_step_language">Choose interface language</string>
+    <string name="wizard_step_game">Which game are you importing?</string>
+    <string name="wizard_game_zh">Zero Hour</string>
+    <string name="wizard_game_generals">Generals (original)</string>
+    <string name="wizard_step_folder">Select your game files folder</string>
+    <string name="wizard_folder_hint">Copy files from your PC to phone storage first, then pick the game install root. See docs/GAME-FILES.md</string>
+    <string name="wizard_pick_folder">Pick folder</string>
+    <string name="wizard_step_validate">Validate files</string>
+    <string name="wizard_btn_next">Next</string>
+    <string name="wizard_btn_back">Back</string>
+    <string name="wizard_btn_finish">Finish</string>
+    <string name="wizard_btn_skip">Later</string>
+
+    <string name="validate_running">Checking files…</string>
+    <string name="validate_ok_header">Files are valid ✓</string>
+    <string name="validate_problem_header">Problems found:</string>
+    <string name="validate_missing_big">No .big archives found — wrong folder?</string>
+    <string name="validate_missing_exe">Version marker (generalszh.exe or generals.exe) not found</string>
+    <string name="validate_missing_csf">String table (.csf) not found — game text will be empty</string>
+    <string name="validate_found_big_count">%1$d .big archive(s) found</string>
+    <string name="validate_found_marker">Version marker: %1$s</string>
+    <string name="validate_found_csf">String table found: %1$s</string>
+    <string name="validate_folder_read_error">Folder not readable: %1$s</string>
+    <string name="validate_no_folder">No folder selected</string>
+    <string name="validate_required_missing">Required game data was not found.</string>
+
+    <string name="lobby_title">Hotspot Multiplayer Lobby</string>
+    <string name="lobby_host_btn">Host game</string>
+    <string name="lobby_join_btn">Join game</string>
+    <string name="lobby_stop_btn">Close game</string>
+    <string name="lobby_leave_btn">Leave lobby</string>
+    <string name="lobby_your_nick">Your nickname:</string>
+    <string name="lobby_game_name">Game name:</string>
+    <string name="lobby_default_game">Generals match 1</string>
+    <string name="lobby_players">Players (%1$d/8)</string>
+    <string name="lobby_discovered">Discovered games</string>
+    <string name="lobby_no_games">No games found on network…</string>
+    <string name="lobby_scanning">Scanning network…</string>
+    <string name="lobby_ready">Ready</string>
+    <string name="lobby_not_ready">Not ready</string>
+    <string name="lobby_ready_toggle">Toggle ready</string>
+    <string name="lobby_start">Start game</string>
+    <string name="lobby_waiting_engine">Waiting for engine link (phase 16) — the lobby itself is real</string>
+    <string name="lobby_chat_hint">Message…</string>
+    <string name="lobby_send">Send</string>
+    <string name="lobby_join_by_ip">Join by IP</string>
+    <string name="lobby_ip_hint">e.g. 192.168.43.1</string>
+    <string name="lobby_join">Join</string>
+    <string name="lobby_connected_to">Connected to: %1$s</string>
+    <string name="lobby_disconnected">Disconnected</string>
+    <string name="lobby_hotspot_hint">All phones must be on the same hotspot</string>
+    <string name="lobby_player_joined">%1$s joined</string>
+    <string name="lobby_player_left">%1$s left</string>
+    <string name="lobby_host_is">%1$s (host)</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_lang_fa">فارسی</string>
+    <string name="settings_lang_en">English</string>
+    <string name="settings_numerals">Numerals</string>
+    <string name="settings_numerals_persian">Persian (۱۲۳)</string>
+    <string name="settings_numerals_latin">Latin (123)</string>
+    <string name="settings_renderer">Graphics renderer</string>
+    <string name="settings_renderer_auto">Auto (recommended)</string>
+    <string name="settings_renderer_gles">OpenGL ES 3</string>
+    <string name="settings_renderer_vulkan">Vulkan (experimental)</string>
+    <string name="settings_renderer_safe">Safe compatibility mode</string>
+    <string name="settings_touch">Touch sensitivity</string>
+    <string name="settings_camera">Camera sensitivity</string>
+    <string name="settings_hud_scale">In-game HUD scale</string>
+    <string name="settings_left_handed">Left-handed mode</string>
+    <string name="settings_reduce_anim">Reduce animations</string>
+    <string name="settings_edge_scroll">Edge camera scrolling</string>
+    <string name="settings_saved">Saved ✓</string>
+
+    <string name="diag_title">Diagnostics</string>
+    <string name="diag_device">Device</string>
+    <string name="diag_gpu">GPU</string>
+    <string name="diag_ram">RAM</string>
+    <string name="diag_android">Android version</string>
+    <string name="diag_abi">CPU ABI</string>
+    <string name="diag_compat_profile">Compatibility profile</string>
+    <string name="diag_engine">Engine</string>
+    <string name="diag_engine_version">Engine version (native):</string>
+    <string name="diag_refresh">Refresh</string>
+    <string name="diag_compat_high">High</string>
+    <string name="diag_compat_medium">Medium</string>
+    <string name="diag_compat_low">Low</string>
+    <string name="diag_compat_safe">Safe mode</string>
+
+    <string name="about_title">About</string>
+    <string name="about_body">Unofficial community port of Command &amp; Conquer: Generals / Zero Hour for Android.\n\nEngine: EA\'s open-sourced GPLv3 code (maintained by TheSuperHackers).\nNot affiliated with EA. No EA game assets included — import your own legally obtained files.\n\nSource: github.com/obsifox/GeneralsAndroid-Source</string>
+    <string name="about_version">Version: %1$s</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="error">Error</string>
+    <string name="coming_soon">Coming soon (phase %1$s)</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>

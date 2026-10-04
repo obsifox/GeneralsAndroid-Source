@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- پیش‌فرض: فارسی (زبان اول محصول — بخش ۱۱ Master Prompt) -->
+<resources>
+    <string name="app_name">جنرالز اندروید</string>
+    <string name="app_subtitle">پورت بومی فارسی — نسخه غیررسمی اجتماعی</string>
+
+    <!-- داشبورد اصلی -->
+    <string name="menu_campaign">کمپین</string>
+    <string name="menu_skirmish">اسکرمیش</string>
+    <string name="menu_challenge">چالش ژنرال‌ها</string>
+    <string name="menu_multiplayer">چندنفره (هات‌اسپات)</string>
+    <string name="menu_settings">تنظیمات</string>
+    <string name="menu_controls">کنترل‌ها</string>
+    <string name="menu_language">زبان</string>
+    <string name="menu_mods">مادها</string>
+    <string name="menu_game_files">فایل‌های بازی</string>
+    <string name="menu_diagnostics">عیب‌یابی</string>
+    <string name="menu_about">درباره</string>
+
+    <!-- وضعیت فایل بازی -->
+    <string name="data_status_title">وضعیت فایل‌های بازی</string>
+    <string name="data_status_ok">فایل‌های بازی آماده است ✓</string>
+    <string name="data_status_missing">فایل‌های بازی وارد نشده است</string>
+    <string name="data_status_invalid">فایل‌های بازی ناقص یا نامعتبر است</string>
+    <string name="data_status_action">انتخاب / اعتبارسنجی مجدد</string>
+    <string name="data_path_label">مسیر داده:</string>
+    <string name="data_none">—</string>
+
+    <!-- ویزارد اولین اجرا -->
+    <string name="wizard_title">راه‌اندازی اولیه</string>
+    <string name="wizard_welcome">به جنرالز اندروید خوش آمدید</string>
+    <string name="wizard_welcome_body">این برنامه موتور بازی کدباز است و فایل‌های بازی را همراه ندارد. برای بازی، فایل‌های نسخه قانونی خودتان (Generals یا Zero Hour) را وارد کنید. هیچ فایلی از EA در این برنامه نیست.</string>
+    <string name="wizard_step_language">زبان رابط را انتخاب کنید</string>
+    <string name="wizard_step_game">کدام بازی را وارد می‌کنید؟</string>
+    <string name="wizard_game_zh">Zero Hour (زیرو آور)</string>
+    <string name="wizard_game_generals">Generals (جنرالز اصلی)</string>
+    <string name="wizard_step_folder">پوشه فایل‌های بازی را انتخاب کنید</string>
+    <string name="wizard_folder_hint">فایل‌ها را از کامپیوتر به حافظه گوشی کپی کنید و سپس پوشه اصلی نصب بازی را انتخاب کنید. راهنما در docs/GAME-FILES.md</string>
+    <string name="wizard_pick_folder">انتخاب پوشه</string>
+    <string name="wizard_step_validate">اعتبارسنجی فایل‌ها</string>
+    <string name="wizard_btn_next">بعدی</string>
+    <string name="wizard_btn_back">قبلی</string>
+    <string name="wizard_btn_finish">پایان و شروع بازی</string>
+    <string name="wizard_btn_skip">فعلاً بعداً</string>
+
+    <!-- اعتبارسنج -->
+    <string name="validate_running">در حال بررسی فایل‌ها…</string>
+    <string name="validate_ok_header">فایل‌ها معتبرند ✓</string>
+    <string name="validate_problem_header">مشکل‌های پیدا‌شده:</string>
+    <string name="validate_missing_big">هیچ آرشیو .big پیدا نشد — پوشه اشتباه است؟</string>
+    <string name="validate_missing_exe">فایل اجرایی نسخه (generalszh.exe یا generals.exe) پیدا نشد — برای اطمینان از نسخه لازم است</string>
+    <string name="validate_missing_csf">جدول رشته‌ها (.csf) پیدا نشد — متون بازی خالی خواهد بود</string>
+    <string name="validate_found_big_count">%1$d آرشیو .big پیدا شد</string>
+    <string name="validate_found_marker">مهر نسخه: %1$s</string>
+    <string name="validate_found_csf">جدول رشته‌ها پیدا شد: %1$s</string>
+    <string name="validate_folder_read_error">پوشه قابل خواندن نیست: %1$s</string>
+    <string name="validate_no_folder">هیچ پوشه‌ای انتخاب نشده است</string>
+    <string name="validate_required_missing">داده اجباری بازی پیدا نشد.</string>
+
+    <!-- لابی هات‌اسپات -->
+    <string name="lobby_title">لابی چندنفره — هات‌اسپات</string>
+    <string name="lobby_host_btn">میزبان کردن بازی</string>
+    <string name="lobby_join_btn">پیوستن به بازی</string>
+    <string name="lobby_stop_btn">بستن بازی</string>
+    <string name="lobby_leave_btn">خروج از لابی</string>
+    <string name="lobby_your_nick">اسم شما در بازی:</string>
+    <string name="lobby_game_name">نام بازی:</string>
+    <string name="lobby_default_game">بازی جنرالزی ۱</string>
+    <string name="lobby_players">بازیکن‌ها (%1$d/۸)</string>
+    <string name="lobby_discovered">بازی‌های پیدا‌شده</string>
+    <string name="lobby_no_games">هیچ بازی روی شبکه پیدا نشد…</string>
+    <string name="lobby_scanning">در حال جستجوی شبکه…</string>
+    <string name="lobby_ready">آماده</string>
+    <string name="lobby_not_ready">آماده نیست</string>
+    <string name="lobby_ready_toggle">تغییر وضعیت آماده</string>
+    <string name="lobby_start">شروع بازی</string>
+    <string name="lobby_waiting_engine">در انتظار اتصال موتور بازی (فاز ۱۶) — لابی واقعی است، فیک نیست</string>
+    <string name="lobby_chat_hint">پیام…</string>
+    <string name="lobby_send">بفرست</string>
+    <string name="lobby_join_by_ip">ورود با IP دستی</string>
+    <string name="lobby_ip_hint">مثلاً 192.168.43.1</string>
+    <string name="lobby_join">وصل شو</string>
+    <string name="lobby_connected_to">وصل شدید به: %1$s</string>
+    <string name="lobby_disconnected">اتصال قطع شد</string>
+    <string name="lobby_hotspot_hint">همه گوشی‌ها باید به یک هات‌اسپات وصل باشند</string>
+    <string name="lobby_player_joined">%1$s وارد شد</string>
+    <string name="lobby_player_left">%1$s خارج شد</string>
+    <string name="lobby_host_is">%1$s (میزبان)</string>
+
+    <!-- تنظیمات -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_language">زبان</string>
+    <string name="settings_lang_fa">فارسی</string>
+    <string name="settings_lang_en">English</string>
+    <string name="settings_numerals">اعداد</string>
+    <string name="settings_numerals_persian">فارسی (۱۲۳)</string>
+    <string name="settings_numerals_latin">لاتین (123)</string>
+    <string name="settings_renderer">رندرر گرافیکی</string>
+    <string name="settings_renderer_auto">خودکار (پیشنهادی)</string>
+    <string name="settings_renderer_gles">OpenGL ES 3</string>
+    <string name="settings_renderer_vulkan">Vulkan (آزمایشی)</string>
+    <string name="settings_renderer_safe">حالت سازگاری ایمن</string>
+    <string name="settings_touch">حساسیت لمس</string>
+    <string name="settings_camera">حساسیت دوربین</string>
+    <string name="settings_hud_scale">اندازه رابط داخل بازی</string>
+    <string name="settings_left_handed">حالت چپ‌دست</string>
+    <string name="settings_reduce_anim">کاهش انیمیشن</string>
+    <string name="settings_edge_scroll">اسکرول لبه‌ای دوربین</string>
+    <string name="settings_saved">ذخیره شد ✓</string>
+
+    <!-- عیب‌یابی -->
+    <string name="diag_title">عیب‌یابی</string>
+    <string name="diag_device">دستگاه</string>
+    <string name="diag_gpu">پردازنده گرافیکی</string>
+    <string name="diag_ram">حافظه رم</string>
+    <string name="diag_android">نسخه اندروید</string>
+    <string name="diag_abi">معماری CPU</string>
+    <string name="diag_compat_profile">پروفایل سازگاری</string>
+    <string name="diag_engine">موتور</string>
+    <string name="diag_engine_version">نسخه موتور (native):</string>
+    <string name="diag_refresh">بازخوانی</string>
+    <string name="diag_compat_high">قوی</string>
+    <string name="diag_compat_medium">متوسط</string>
+    <string name="diag_compat_low">ضعیف</string>
+    <string name="diag_compat_safe">حالت ایمن</string>
+
+    <!-- درباره -->
+    <string name="about_title">درباره</string>
+    <string name="about_body">پورت غیررسمی اجتماعی Command &amp; Conquer: Generals / Zero Hour برای اندروید.\n\nموتور بازی: سورس کد بازشده EA تحت GPLv3 (نگهداری TheSuperHackers).\nاین برنامه وابسته به EA نیست و هیچ فایل بازی EA را شامل نمی‌شود.\nفایل‌های بازی باید توسط خودتان و به‌صورت قانونی تأمین شوند.\n\nسورس: github.com/obsifox/GeneralsAndroid-Source</string>
+    <string name="about_version">نسخه: %1$s</string>
+
+    <!-- عمومی -->
+    <string name="ok">باشه</string>
+    <string name="cancel">لغو</string>
+    <string name="close">بستن</string>
+    <string name="error">خطا</string>
+    <string name="coming_soon">به‌زودی (فاز %1$s)</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+</resources>
