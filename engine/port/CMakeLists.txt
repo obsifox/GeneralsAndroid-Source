@@ -6,6 +6,15 @@
 
 # GENERALS_PORT_DIR is set by the root patch (or cache) to this directory.
 
+# ——— gamespy bionic compat (configure-time, idempotent) ———
+# The populated SDK dir is visible here because the upstream tree (which
+# FetchContent_MakeAvailable's gamespy) is a sibling added BEFORE this file.
+if(ANDROID AND DEFINED gamespy_SOURCE_DIR AND EXISTS "${gamespy_SOURCE_DIR}/src")
+    set(SDK_DIR "${gamespy_SOURCE_DIR}")
+    include("${CMAKE_CURRENT_LIST_DIR}/patches/gamespy-bionic.cmake")
+    unset(SDK_DIR)
+endif()
+
 add_library(generals_android SHARED
     "${GENERALS_PORT_DIR}/win32shim/win32shim.cpp"
     "${GENERALS_PORT_DIR}/android/AndroidMain.cpp"

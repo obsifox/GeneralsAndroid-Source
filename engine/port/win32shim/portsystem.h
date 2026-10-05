@@ -6,6 +6,11 @@
 // GPLv3-or-later. obsifox/GeneralsAndroid-Source.
 #pragma once
 
+// crtcompat MUST come before every standard header: with _WIN32 defined,
+// libc++ takes its MSVCRT-LIKE branches (e.g. <new> → ::_aligned_malloc)
+// and needs the bionic replacements to exist already (see crtcompat.h).
+#include "crtcompat.h"
+
 #ifdef __cplusplus
 #include <cstddef>
 #include <cstdlib>
