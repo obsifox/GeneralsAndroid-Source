@@ -16,6 +16,7 @@ import com.obsifox.generals.io.GameDataResolver
 import com.obsifox.generals.io.GameDataStore
 import com.obsifox.generals.io.GameFilesValidator
 import com.obsifox.generals.io.ValidationResult
+import com.obsifox.generals.game.GameActivity
 import com.obsifox.generals.util.Persian
 import com.obsifox.generals.util.Ui
 
@@ -101,8 +102,11 @@ class BootActivity : AppCompatActivity() {
                 p.gravity = Gravity.CENTER
                 body.addView(p); Ui.margins(p, top = 14)
                 progressText = Ui.label(this, "", 12, color = R.color.text_secondary)
-                progressText?.gravity = Gravity.CENTER
-                body.addView(progressText); Ui.margins(progressText, top = 6)
+                val pt = progressText
+                if (pt != null) {
+                    pt.gravity = Gravity.CENTER
+                    body.addView(pt); Ui.margins(pt, top = 6)
+                }
                 val note = Ui.label(this, getString(R.string.boot_copy_note), 12,
                     color = R.color.text_secondary)
                 note.gravity = Gravity.CENTER

@@ -23,6 +23,9 @@ android {
             cmake {
                 cppFlags += listOf("-std=c++17", "-fexceptions", "-frtti")
                 arguments += listOf("-DANDROID_STL=c++_shared", "-DGENERALS_BUILD_PLATFORM_ANDROID=ON")
+                // فقط لایبرری خودمان ساخته شود؛ ابزارهای دسکتاپ آپ‌استریم
+                // (worldbuilder/wdump/...) نباید در بیلد اندروید کامپایل شوند.
+                targets += listOf("generals_android")
                 arguments += System.getenv("GENERALS_ENGINE_ROOT")?.let {
                     listOf("-DGENERALS_ENGINE_ROOT=$it")
                 } ?: emptyList()
