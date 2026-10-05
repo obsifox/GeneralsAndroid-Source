@@ -116,7 +116,10 @@ jobs:
 
   engine-link:
     name: Experimental engine link (GEN_PORT_ENGINE=ON)
-    # ادامه‌ی کار پورت موتور: قرمز بودن این job انتشار APK را بلاک نمی‌کند.
+    # NOTE: kept for history — this job MOVED to .github/workflows/engine.yml
+    # so it can never starve the release runner (two jobs sharing one runner
+    # slot cancelled the build-apk job on 2026-10-05).
+    if: false
     continue-on-error: true
     runs-on: ubuntu-latest
     defaults:

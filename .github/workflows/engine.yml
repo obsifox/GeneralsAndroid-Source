@@ -1,0 +1,65 @@
+name: engine-link
+
+# پیوست experimental engine-link از android.yml (۲۰۲۶-۱۰-۰۵):
+# این جاب در همان workflow با build-apk رقابت رانر می‌کرد و build-apk را
+# cancel می‌کرد. الان جدا است تا انتشار APK هیچ‌وقت بلاک نشود.
+# Job قرمز = پیشرفت پورت موتور هنوز ناتمام است؛ روی انتشار اثر ندارد.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'engine/**'
+      - 'source/app/src/main/cpp/**'
+      - '.github/workflows/engine.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  link:
+    name: Real engine link (GEN_PORT_ENGINE=ON)
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: source
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Fetch pinned engine + apply port patches
+        run: |
+          chmod +x ../engine/fetch_upstream.sh
+          ../engine/fetch_upstream.sh
+          echo "GENERALS_ENGINE_ROOT=$GITHUB_WORKSPACE/engine/upstream" >> $GITHUB_ENV
+          echo "GEN_PORT_ENGINE=ON" >> $GITHUB_ENV
+
+      - name: Ensure CMake >= 3.28 (upstream requirement)
+        run: |
+          SDKM=/usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
+          if [ -x "$SDKM" ]; then
+            yes | "$SDKM" --licenses >/dev/null 2>&1 || true
+            "$SDKM" --install "cmake;3.31.1" >/dev/null 2>&1 || true
+          fi
+          if [ ! -x /usr/local/lib/android/sdk/cmake/3.31.1/bin/cmake ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq cmake ninja-build >/dev/null
+            echo "cmake.dir=$(dirname "$(dirname "$(readlink -f "$(which cmake)")")")" >> local.properties
+          fi
+          (cmake --version || /usr/local/lib/android/sdk/cmake/3.31.1/bin/cmake --version) | head -1
+
+      - name: Build with real engine linked
+        run: gradle --no-daemon :app:assembleDebug
