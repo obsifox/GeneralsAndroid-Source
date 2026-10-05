@@ -1,0 +1,21 @@
+# 0003-generals-wwdownload.patch — the base-game (Generals) tree's WWDownload
+# contains no open-sourced sources (CMakeLists only); under GENERALS_PORT the
+# directory is skipped, otherwise CMake aborts with "No SOURCES given to
+# target: g_wwdownload". Mirrors the Core/GeneralsMD gates in 0002.
+# GPLv3-or-later. Part of obsifox/GeneralsAndroid-Source.
+--- a/Generals/Code/Libraries/Source/WWVegas/CMakeLists.txt
++++ b/Generals/Code/Libraries/Source/WWVegas/CMakeLists.txt
+@@ -14,8 +14,12 @@
+ )
+
+ add_subdirectory(WWAudio)
+ add_subdirectory(WW3D2)
+-add_subdirectory(WWDownload)
++if(NOT GENERALS_PORT)
++    # obsifox port: WWDownload sources were never open-sourced for the
++    # base-game tree; the download code is inert on Android.
++    add_subdirectory(WWDownload)
++endif()
+
+ # Helpful interface to bundle the ww modules together.
+ add_library(g_wwvegas INTERFACE)
