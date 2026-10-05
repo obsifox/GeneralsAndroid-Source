@@ -26,9 +26,17 @@ android {
                 // فقط لایبرری خودمان ساخته شود؛ ابزارهای دسکتاپ آپ‌استریم
                 // (worldbuilder/wdump/...) نباید در بیلد اندروید کامپایل شوند.
                 targets += listOf("generals_android")
-                arguments += System.getenv("GENERALS_ENGINE_ROOT")?.let {
-                    listOf("-DGENERALS_ENGINE_ROOT=$it")
-                } ?: emptyList()
+                // لینک موتور کامل (win32shim + engine) فقط وقتی صریحاً خواسته
+                // شده باشد: GEN_PORT_ENGINE=ON. پیش‌فرض = پوسته‌ی پلتفرم
+                // (مسیر سبز و اثبات‌شده‌ی v0.1.2) تا انتشار APK همیشه سبز بماند؛
+                // لینک موتور به‌صورت جداگانه ادامه پیدا می‌کند (job پایدار
+                // engine-link در CI).
+                val engineRoot = System.getenv("GENERALS_ENGINE_ROOT")
+                val portEngine = (System.getenv("GEN_PORT_ENGINE") ?: "OFF")
+                    .equals("ON", ignoreCase = true)
+                arguments += if (engineRoot != null && portEngine) {
+                    listOf("-DGENERALS_ENGINE_ROOT=$engineRoot")
+                } else emptyList()
             }
         }
     }
