@@ -43,5 +43,7 @@ endif()
 # The upstream root CMakeLists (patched, see engine/port/patches) activates
 # the port block when ANDROID is set, and adds engine/port as the
 # `generals_android` target (OUTPUT_NAME "generals") with the JNI glue.
+# NOTE: no EXCLUDE_FROM_ALL — AGP only accepts targets that participate in
+# `all`; excluded targets are invisible to the gradle `targets` spec.
 message(STATUS "Linking upstream engine from ${GENERALS_ENGINE_ROOT}")
-add_subdirectory(${GENERALS_ENGINE_ROOT} generals-engine EXCLUDE_FROM_ALL)
+add_subdirectory(${GENERALS_ENGINE_ROOT} generals-engine)
