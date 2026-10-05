@@ -27,7 +27,9 @@
 #   GeneralsMD/Code/GameEngine/CMakeLists.txt
 #   GeneralsMD/Code/GameEngineDevice/CMakeLists.txt
 #   Core/GameEngine/Include/GameClient/GameWindow.h
+#   Core/GameEngine/Include/GameNetwork/LANAPI.h
 #   Core/GameEngine/Include/GameNetwork/NetworkDefs.h
+#   GeneralsMD/Code/GameEngine/Source/Common/System/registry.cpp
 
 --- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/CMakeLists.txt	2026-10-04 06:33:38.000000000 +0000
 +++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/CMakeLists.txt	2026-10-05 02:48:52.018889563 +0000
@@ -420,7 +422,7 @@
  
  target_sources(z_ww3d2 PRIVATE ${WW3D2_SRC})
 --- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/GeneralsMD/Code/GameEngine/CMakeLists.txt	2026-10-04 06:33:38.000000000 +0000
-+++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/GeneralsMD/Code/GameEngine/CMakeLists.txt	2026-10-05 03:18:35.678964628 +0000
++++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/GeneralsMD/Code/GameEngine/CMakeLists.txt	2026-10-05 03:28:11.220648639 +0000
 @@ -656,7 +656,7 @@
      Source/Common/System/SaveGame/GameState.cpp
      Source/Common/System/SaveGame/GameStateMap.cpp
@@ -430,13 +432,11 @@
  #    Source/Common/System/StreamingArchiveFile.cpp
  #    Source/Common/System/SubsystemInterface.cpp
      Source/Common/System/Trig.cpp
-@@ -1152,6 +1152,15 @@
+@@ -1152,6 +1152,13 @@
  
  target_sources(z_gameengine PRIVATE ${GAMEENGINE_SRC})
  
 +if(GENERALS_PORT)
-+    # EABrowserDispatch headers (WebBrowser.h chain). Scoped to this target.
-+    target_include_directories(z_gameengine PRIVATE "${CMAKE_SOURCE_DIR}/Core/Libraries/Source")
 +    # §35 workaround: menu callbacks still narrow pointers to Int at call
 +    # sites (32-bit-era code); tolerated as warnings until the touch-UI phase
 +    # rewires them to WindowMsgData.
@@ -446,7 +446,7 @@
  target_include_directories(z_gameengine PUBLIC
      Include
  )
-@@ -1165,6 +1174,7 @@
+@@ -1165,6 +1172,7 @@
      zi_always
  )
  
@@ -478,6 +478,21 @@
  
  //-----------------------------------------------------------------------------
  enum WindowMsgHandledType CPP_11(: Int) { MSG_IGNORED, MSG_HANDLED };
+--- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/Core/GameEngine/Include/GameNetwork/LANAPI.h	2026-10-04 06:33:38.000000000 +0000
++++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/Core/GameEngine/Include/GameNetwork/LANAPI.h	2026-10-05 03:33:56.326644708 +0000
+@@ -269,7 +269,12 @@
+ };
+ #pragma pack(pop)
+ 
++// obsifox port: 64-bit padding adds a few bytes over the retail ceiling
++#ifdef GENERALS_PORT
++static_assert(sizeof(LANMessage) <= MAX_LANAPI_PACKET_SIZE + 64, "LANMessage struct cannot be larger than the max packet size (+64 port padding)");
++#else
+ static_assert(sizeof(LANMessage) <= MAX_LANAPI_PACKET_SIZE, "LANMessage struct cannot be larger than the max packet size");
++#endif
+ 
+ 
+ /**
 --- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/Core/GameEngine/Include/GameNetwork/NetworkDefs.h	2026-10-04 06:33:38.000000000 +0000
 +++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/Core/GameEngine/Include/GameNetwork/NetworkDefs.h	2026-10-05 03:18:35.676964623 +0000
 @@ -65,7 +65,15 @@
@@ -497,3 +512,43 @@
  
  // TheSuperHackers @info The legacy lanapi cannot use a larger packet size without breaking the gameinfo command
  static constexpr const Int MAX_LANAPI_PACKET_SIZE = RETAIL_GAME_PACKET_SIZE;
+--- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/GeneralsMD/Code/GameEngine/Source/Common/System/registry.cpp	2026-10-04 06:33:38.000000000 +0000
++++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/GeneralsMD/Code/GameEngine/Source/Common/System/registry.cpp	2026-10-05 03:33:56.326644708 +0000
+@@ -35,8 +35,8 @@
+ {
+ 	HKEY handle;
+ 	unsigned char buffer[256];
+-	unsigned long size = 256;
+-	unsigned long type;
++	DWORD size = 256; // obsifox port: 32-bit API type
++	DWORD type;
+ 	int returnValue;
+ 
+ 	if ((returnValue = RegOpenKeyEx( root, path.str(), 0, KEY_READ, &handle )) == ERROR_SUCCESS)
+@@ -59,7 +59,7 @@
+ 	HKEY handle;
+ 	unsigned char buffer[4];
+ 	unsigned long size = 4;
+-	unsigned long type;
++	DWORD type;
+ 	int returnValue;
+ 
+ 	if ((returnValue = RegOpenKeyEx( root, path.str(), 0, KEY_READ, &handle )) == ERROR_SUCCESS)
+@@ -80,7 +80,7 @@
+ Bool setStringInRegistry( HKEY root, AsciiString path, AsciiString key, AsciiString val)
+ {
+ 	HKEY handle;
+-	unsigned long type;
++	DWORD type;
+ 	unsigned long returnValue;
+ 	int size;
+ 	char lpClass[] = "REG_NONE";
+@@ -99,7 +99,7 @@
+ Bool setUnsignedIntInRegistry( HKEY root, AsciiString path, AsciiString key, UnsignedInt val)
+ {
+ 	HKEY handle;
+-	unsigned long type;
++	DWORD type;
+ 	unsigned long returnValue;
+ 	int size;
+ 	char lpClass[] = "REG_NONE";
