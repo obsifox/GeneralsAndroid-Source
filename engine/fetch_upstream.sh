@@ -31,7 +31,10 @@ else
 fi
 
 # Apply the port patch series (idempotent: skip if already applied).
-PATCH_DIR="../port/patches"
+# PATCH_DIR must be RESOLVED against this script's own directory (we cd'ed
+# into engine/ above) — a "../port/patches" would point outside the repo.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PATCH_DIR="${SCRIPT_DIR}/port/patches"
 if [ -f "${OUT}/.generals-port-patched" ]; then
   echo ">> port patches already applied."
 elif [ -d "${PATCH_DIR}" ]; then
@@ -39,10 +42,13 @@ elif [ -d "${PATCH_DIR}" ]; then
   for p in "${PATCH_DIR}"/[0-9]*.patch; do
     [ -e "$p" ] || continue
     echo "   applying $(basename "$p")"
-    patch -d "${OUT}" -p1 --forward < "$p" || {
+    patch -d "${OUT}" -p1 --forward --ignore-whitespace < "$p" || {
       echo "ERROR: patch $(basename "$p") failed"; exit 1; }
   done
   echo "applied" > "${OUT}/.generals-port-patched"
+else
+  echo "ERROR: patch dir not found: ${PATCH_DIR}" >&2
+  exit 1
 fi
 
 echo ">> upstream source ready at engine/${OUT}/ (pin ${SHA})"
