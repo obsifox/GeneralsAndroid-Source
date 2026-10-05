@@ -11,8 +11,8 @@ android {
         applicationId = "com.obsifox.generals"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
-        versionName = "0.1.3-alpha"
+        versionCode = 5
+        versionName = "0.1.3.1-alpha"
         resourceConfigurations += listOf("fa", "en")
 
         ndk {
