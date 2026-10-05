@@ -246,17 +246,33 @@ unsigned int timeGetTime(void) { return static_cast<unsigned int>(shim_now_ms())
 MMRESULT timeBeginPeriod(int) { return TIMERR_NOERROR; }
 MMRESULT timeEndPeriod(int) { return TIMERR_NOERROR; }
 
-BOOL QueryPerformanceCounter(LONGLONG* counter) {
+BOOL QueryPerformanceCounter(LARGE_INTEGER* counter) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    *counter = (LONGLONG)ts.tv_sec * 1000000000LL + ts.tv_nsec;
+    counter->QuadPart = (LONGLONG)ts.tv_sec * 1000000000LL + ts.tv_nsec;
     return TRUE;
 }
 
-BOOL QueryPerformanceFrequency(LONGLONG* frequency) {
-    *frequency = 1000000000LL; // ns base
+BOOL QueryPerformanceFrequency(LARGE_INTEGER* frequency) {
+    frequency->QuadPart = 1000000000LL; // ns base
     return TRUE;
 }
+
+void GlobalMemoryStatus(MEMORYSTATUS* status) {
+    if (!status) return;
+    MEMORYSTATUSEX ex;
+    GlobalMemoryStatusEx(&ex);
+    status->dwLength = sizeof(*status);
+    status->dwMemoryLoad = ex.dwMemoryLoad;
+    status->dwTotalPhys = static_cast<SIZE_T>(ex.ullTotalPhys);
+    status->dwAvailPhys = static_cast<SIZE_T>(ex.ullAvailPhys);
+    status->dwTotalPageFile = status->dwTotalPhys;
+    status->dwAvailPageFile = status->dwAvailPhys;
+    status->dwTotalVirtual = status->dwTotalPhys;
+    status->dwAvailVirtual = status->dwAvailPhys;
+}
+
+BOOL ShowWindow(HWND, int) { return TRUE; }
 
 void GetLocalTime(SYSTEMTIME* st) {
     time_t now = time(nullptr);

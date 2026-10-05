@@ -127,4 +127,29 @@
     <string name="coming_soon">Coming soon (phase %1$s)</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- v0.1.3 — direct launch: tap icon → the game itself -->
+    <string name="boot_tagline">One tap — and the real game launches</string>
+    <string name="boot_checking">Checking game files…</string>
+    <string name="boot_preparing">Preparing the game…</string>
+    <string name="boot_copy_note">This preparation happens only once; afterwards the game launches directly.</string>
+    <string name="boot_need_files_title">Only once: pick your game folder</string>
+    <string name="boot_need_files_body">This app is the open-source game engine and, due to EA copyright, ships without game files. The first time only, pick the folder of your legally owned copy (Generals or Zero Hour) and the game will launch. No other questions are asked.</string>
+    <string name="boot_pick_btn">Pick game folder and start</string>
+    <string name="boot_advanced_link">Advanced settings and diagnostics</string>
+    <string name="boot_setup_failed">Game preparation failed</string>
+
+    <!-- v0.1.3 — game screen -->
+    <string name="game_loading">Starting the game…</string>
+    <string name="game_copying">Preparing files (first time only)… %1$s — %2$s</string>
+    <string name="game_data_fail">Could not start with the game data</string>
+    <string name="game_data_fail_hint">Re-pick the game folder from Dashboard → Game files.</string>
+    <string name="game_engine_ready">Game is ready</string>
+    <string name="game_engine_boot_failed">Engine failed to load</string>
+    <string name="game_engine_version">Engine: %1$s</string>
+    <string name="game_engine_note">The native Android layer is active; full upstream engine linking follows the roadmap (phases 3–5).</string>
+    <string name="game_data_path">Data: %1$s</string>
+    <string name="game_btn_lan">Network battle (hotspot)</string>
+    <string name="game_btn_dashboard">Dashboard and settings</string>
+    <string name="game_btn_exit">Exit game</string>
 </resources>

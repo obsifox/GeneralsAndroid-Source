@@ -525,8 +525,28 @@ void GetLocalTime(SYSTEMTIME* st);
 void GetSystemTime(SYSTEMTIME* st);
 void Sleep(int ms);
 #endif // GENERALS_PORT_COMPAT_TAKEN
-BOOL QueryPerformanceCounter(LONGLONG* counter);
-BOOL QueryPerformanceFrequency(LONGLONG* frequency);
+BOOL QueryPerformanceCounter(LARGE_INTEGER* counter);
+BOOL QueryPerformanceFrequency(LARGE_INTEGER* frequency);
+
+typedef int (*FARPROC)();
+typedef int (*NEARPROC)();
+typedef void (*VOIDPROC)();
+typedef struct _MEMORYSTATUS {
+    DWORD dwLength;
+    DWORD dwMemoryLoad;
+    SIZE_T dwTotalPhys;
+    SIZE_T dwAvailPhys;
+    SIZE_T dwTotalPageFile;
+    SIZE_T dwAvailPageFile;
+    SIZE_T dwTotalVirtual;
+    SIZE_T dwAvailVirtual;
+} MEMORYSTATUS, *LPMEMORYSTATUS;
+void GlobalMemoryStatus(MEMORYSTATUS* status);
+BOOL ShowWindow(HWND hwnd, int nCmdShow);
+#define SW_SHOWNOACTIVATE_shim_pad_ 4
+#define IN
+#define OUT
+#define SNMP_MemFree_shim_pad_ 1
 
 // ---------------------------------------------------------------------------
 // Debug output / message boxes (log redirection)
@@ -814,9 +834,26 @@ static inline unsigned long _lrotr(unsigned long v, int s) {
     return s ? ((v >> s) | (v << (32 - s))) : v;
 }
 
+#define TIME_NOSECONDS 2
+#define TIME_NOTZSPEC 4
+#define DATE_SHORTDATE 1
+#define DATE_LONGDATE 2
+#define __min(a, b) (((a) < (b)) ? (a) : (b))
+#define __max(a, b) (((a) > (b)) ? (a) : (b))
+
 int GetLastError(void); // lzhl's CompLib declares int; DWORD callers still work
 #define SetLastError(x) ((void)(x))
 
 // Timing helpers referencing the structs above
-BOOL QueryPerformanceCounter(LONGLONG* counter);
-BOOL QueryPerformanceFrequency(LONGLONG* frequency);
+BOOL QueryPerformanceCounter(LARGE_INTEGER* counter);
+BOOL QueryPerformanceFrequency(LARGE_INTEGER* frequency);
+
+typedef int (*FARPROC)();
+typedef int (*NEARPROC)();
+typedef void (*VOIDPROC)();
+
+BOOL ShowWindow(HWND hwnd, int nCmdShow);
+#define SW_SHOWNOACTIVATE_shim_pad_ 4
+#define IN
+#define OUT
+#define SNMP_MemFree_shim_pad_ 1

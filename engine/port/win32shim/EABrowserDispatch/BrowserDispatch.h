@@ -10,9 +10,13 @@
 DEFINE_GUID(IID_IBrowserDispatch, 0x00000000, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01);
 #endif
 
-template <typename Class, typename Iface, const GUID* Iid>
-class FEBDispatch
+// NOTE: FEBDispatch<Class, Iface, IID> template is provided upstream by
+// WOLBrowser/FEBDispatch.h — do not redefine it here.
+class IBrowserDispatch
 {
 public:
-    virtual ~FEBDispatch() {}
+    virtual ~IBrowserDispatch() {}
+    virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID, void**) = 0;
+    virtual ULONG STDMETHODCALLTYPE AddRef() = 0;
+    virtual ULONG STDMETHODCALLTYPE Release() = 0;
 };

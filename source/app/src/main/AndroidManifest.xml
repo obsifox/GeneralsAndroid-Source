@@ -25,8 +25,9 @@
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="33">
 
+        <!-- v0.1.3: ورود یکپارچه — کلیک روی آیکون → خودِ بازی -->
         <activity
-            android:name=".MainActivity"
+            android:name=".BootActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorPortrait"
@@ -36,6 +37,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- صفحه‌ی تمام‌صفحه‌ی بازی: افقی و بدون نوار سیستم -->
+        <activity
+            android:name=".game.GameActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
 
         <activity
             android:name=".wizard.FirstRunWizardActivity"

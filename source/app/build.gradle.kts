@@ -11,8 +11,8 @@ android {
         applicationId = "com.obsifox.generals"
         minSdk = 24
         targetSdk = 34
-        versionCode = 3
-        versionName = "0.1.2-alpha"
+        versionCode = 4
+        versionName = "0.1.3-alpha"
         resourceConfigurations += listOf("fa", "en")
 
         ndk {
@@ -33,7 +33,9 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
+            // آپ‌استریم پین‌شده cmake_minimum_required(3.28) دارد؛ SDK با 3.31.1
+            // به‌صورت خودکار روی CI نصب می‌شود.
+            version = "3.31.1"
         }
     }
 

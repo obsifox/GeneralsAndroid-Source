@@ -137,4 +137,29 @@
     <string name="coming_soon">به‌زودی (فاز %1$s)</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
+
+    <!-- v0.1.3 — اجرای مستقیم: کلیک روی آیکون → خودِ بازی -->
+    <string name="boot_tagline">یک کلیک — و خودِ بازی اجرا می‌شود</string>
+    <string name="boot_checking">در حال بررسی فایل‌های بازی…</string>
+    <string name="boot_preparing">در حال آماده‌سازی بازی…</string>
+    <string name="boot_copy_note">این آماده‌سازی فقط بار اول انجام می‌شود؛ دفعات بعد، بازی مستقیم اجرا می‌شود.</string>
+    <string name="boot_need_files_title">فقط یک بار: پوشه‌ی بازی را انتخاب کنید</string>
+    <string name="boot_need_files_body">این برنامه موتور بازی کدباز است و به‌دلیل حق نشر EA، فایل‌های بازی را همراه ندارد. فقط بار اول، پوشه‌ی نسخه‌ی قانونی خودتان (Generals یا Zero Hour) را انتخاب کنید تا خودِ بازی اجرا شود. هیچ سؤال دیگری پرسیده نمی‌شود.</string>
+    <string name="boot_pick_btn">انتخاب پوشه‌ی بازی و شروع</string>
+    <string name="boot_advanced_link">تنظیمات پیشرفته و عیب‌یابی</string>
+    <string name="boot_setup_failed">آماده‌سازی بازی انجام نشد</string>
+
+    <!-- v0.1.3 — صفحه‌ی بازی -->
+    <string name="game_loading">در حال اجرای بازی…</string>
+    <string name="game_copying">در حال آماده‌سازی فایل‌ها (فقط بار اول)… %1$s — %2$s</string>
+    <string name="game_data_fail">اجرای داده‌های بازی ممکن نشد</string>
+    <string name="game_data_fail_hint">پوشه‌ی بازی از «داشبورد ← فایل‌های بازی» دوباره انتخاب کنید.</string>
+    <string name="game_engine_ready">بازی آماده است</string>
+    <string name="game_engine_boot_failed">موتور بارگذاری نشد</string>
+    <string name="game_engine_version">موتور: %1$s</string>
+    <string name="game_engine_note">لایه‌ی بومی اندروید فعال است؛ اتصال کامل موتور اصلی طبق نقشه‌ی راه (فاز ۳ تا ۵) انجام می‌شود.</string>
+    <string name="game_data_path">داده‌ها: %1$s</string>
+    <string name="game_btn_lan">نبرد شبکه‌ای (هات‌اسپات)</string>
+    <string name="game_btn_dashboard">داشبورد و تنظیمات</string>
+    <string name="game_btn_exit">خروج از بازی</string>
 </resources>
