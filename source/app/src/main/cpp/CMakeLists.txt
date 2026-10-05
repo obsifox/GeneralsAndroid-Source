@@ -59,6 +59,6 @@ add_subdirectory(${GENERALS_ENGINE_ROOT} generals-engine)
 # (OUTPUT_NAME "generals") — the JNI glue + win32shim + engine bootstrap.
 # It is added HERE (top-level scope) because AGP's `targets` spec can only
 # address targets visible at the project root it configures.
-set(GENERALS_PORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../engine/port")
+set(GENERALS_PORT_DIR "${GENERALS_ENGINE_ROOT}/../port")
 message(STATUS "Adding Android port layer from ${GENERALS_PORT_DIR}")
 add_subdirectory(${GENERALS_PORT_DIR} generals-android-port)
