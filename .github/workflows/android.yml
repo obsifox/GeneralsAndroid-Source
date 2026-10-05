@@ -38,6 +38,21 @@ jobs:
           ../engine/fetch_upstream.sh
           echo "GENERALS_ENGINE_ROOT=$GITHUB_WORKSPACE/engine/upstream" >> $GITHUB_ENV
 
+      - name: Ensure CMake >= 3.28 (upstream requirement)
+        run: |
+          SDKM=/usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
+          if [ -x "$SDKM" ]; then
+            yes | "$SDKM" --licenses >/dev/null 2>&1 || true
+            "$SDKM" --install "cmake;3.31.1" >/dev/null 2>&1 || true
+          fi
+          if [ ! -x /usr/local/lib/android/sdk/cmake/3.31.1/bin/cmake ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq cmake ninja-build >/dev/null
+            # AGP reads cmake.dir from local.properties (root of the install)
+            echo "cmake.dir=$(dirname "$(dirname "$(readlink -f "$(which cmake)")")")" >> local.properties
+          fi
+          (cmake --version || /usr/local/lib/android/sdk/cmake/3.31.1/bin/cmake --version) | head -1
+
       - name: Build (debug + release)
         run: gradle --no-daemon :app:assembleDebug :app:assembleRelease
 
