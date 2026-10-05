@@ -34,9 +34,15 @@ android {
                 val engineRoot = System.getenv("GENERALS_ENGINE_ROOT")
                 val portEngine = (System.getenv("GEN_PORT_ENGINE") ?: "OFF")
                     .equals("ON", ignoreCase = true)
-                arguments += if (engineRoot != null && portEngine) {
+                val linkEngine = engineRoot != null && portEngine
+                arguments += if (linkEngine) {
                     listOf("-DGENERALS_ENGINE_ROOT=$engineRoot")
                 } else emptyList()
+                // نام هدف هم باید با مود هم‌خوان باشد: در حالت پوسته‌ی پلتفرم
+                // فقط هدف legacy «generals» وجود دارد؛ در حالت موتور کامل،
+                // «generals_android» (لایه‌ی port، OUTPUT_NAME=generals).
+                targets += if (linkEngine) listOf("generals_android")
+                           else listOf("generals")
             }
         }
     }
