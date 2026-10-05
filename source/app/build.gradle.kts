@@ -25,7 +25,6 @@ android {
                 arguments += listOf("-DANDROID_STL=c++_shared", "-DGENERALS_BUILD_PLATFORM_ANDROID=ON")
                 // فقط لایبرری خودمان ساخته شود؛ ابزارهای دسکتاپ آپ‌استریم
                 // (worldbuilder/wdump/...) نباید در بیلد اندروید کامپایل شوند.
-                targets += listOf("generals_android")
                 // لینک موتور کامل (win32shim + engine) فقط وقتی صریحاً خواسته
                 // شده باشد: GEN_PORT_ENGINE=ON. پیش‌فرض = پوسته‌ی پلتفرم
                 // (مسیر سبز و اثبات‌شده‌ی v0.1.2) تا انتشار APK همیشه سبز بماند؛
