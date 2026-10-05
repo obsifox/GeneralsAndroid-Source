@@ -23,6 +23,9 @@ android {
             cmake {
                 cppFlags += listOf("-std=c++17", "-fexceptions", "-frtti")
                 arguments += listOf("-DANDROID_STL=c++_shared", "-DGENERALS_BUILD_PLATFORM_ANDROID=ON")
+                arguments += System.getenv("GENERALS_ENGINE_ROOT")?.let {
+                    listOf("-DGENERALS_ENGINE_ROOT=$it")
+                } ?: emptyList()
             }
         }
     }

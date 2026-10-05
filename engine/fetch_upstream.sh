@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Fetch pinned upstream engine source (read-only clone via codeload tarball).
+# Fetch pinned upstream engine source (read-only clone via codeload tarball)
+# and apply the obsifox Android-port patch series.
 # Usage: ./fetch_upstream.sh [sha]   (default: pinned sha from UPSTREAM.md)
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -10,16 +11,38 @@ OUT="upstream"
 
 echo ">> fetching ${REPO}@${SHA}"
 mkdir -p "${OUT}"
-if [ -f "${OUT}/.generals-pinned" ] && [ "$(cat "${OUT}/.generals-pinned")" = "${SHA}" ]; then
+
+if [ -f "${OUT}/.generals-pinned" ] && [ "$(cat "${OUT}/.generals-pinned")" = "${SHA}" ] && [ -f "${OUT}/CMakeLists.txt" ]; then
   echo ">> already fetched at this pin — done."
-  exit 0
+else
+  if command -v curl >/dev/null 2>&1; then
+    curl -L --fail --retry 3 -o upstream.tar.gz \
+      "https://codeload.github.com/${REPO}/tar.gz/${SHA}"
+  else
+    wget -O upstream.tar.gz "https://codeload.github.com/${REPO}/tar.gz/${SHA}"
+  fi
+  tar -xzf upstream.tar.gz
+  if [ -d "GeneralsGameCode-${SHA}" ]; then
+    cp -a "GeneralsGameCode-${SHA}/." "${OUT}/"
+    rm -rf "GeneralsGameCode-${SHA}"
+  fi
+  rm -f upstream.tar.gz
+  echo "${SHA}" > "${OUT}/.generals-pinned"
 fi
-rm -rf "${OUT}" 2>/dev/null || true   # only ever removes our own fetch dir, never git-tracked
-curl -L --fail --retry 3 -o upstream.tar.gz \
-  "https://codeload.github.com/${REPO}/tar.gz/${SHA}"
-tar -xzf upstream.tar.gz
-mv "GeneralsGameCode-${SHA#*/}"/* "GeneralsGameCode-${SHA#*/}"/.[!.]* "${OUT}/" 2>/dev/null || \
-  mv GeneralsGameCode-*/. "${OUT}/"
-rm -f upstream.tar.gz
-echo "${SHA}" > "${OUT}/.generals-pinned"
+
+# Apply the port patch series (idempotent: skip if already applied).
+PATCH_DIR="../port/patches"
+if [ -f "${OUT}/.generals-port-patched" ]; then
+  echo ">> port patches already applied."
+elif [ -d "${PATCH_DIR}" ]; then
+  echo ">> applying port patch series..."
+  for p in "${PATCH_DIR}"/[0-9]*.patch; do
+    [ -e "$p" ] || continue
+    echo "   applying $(basename "$p")"
+    patch -d "${OUT}" -p1 --forward < "$p" || {
+      echo "ERROR: patch $(basename "$p") failed"; exit 1; }
+  done
+  echo "applied" > "${OUT}/.generals-port-patched"
+fi
+
 echo ">> upstream source ready at engine/${OUT}/ (pin ${SHA})"

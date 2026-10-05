@@ -33,5 +33,9 @@ object NativeBridge {
 
     external fun nativeShutdownEngine()
 
+    /** Engine boot/run status — only available in engine-linked builds. */
+    fun engineStatus(): String? = try { nativeEngineStatus() } catch (t: Throwable) { null }
+    private external fun nativeEngineStatus(): String
+
     external fun nativeDeviceProfile(): String
 }

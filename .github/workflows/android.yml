@@ -32,6 +32,12 @@ jobs:
         with:
           gradle-version: '8.9'
 
+      - name: Fetch pinned engine + apply port patches
+        run: |
+          chmod +x ../engine/fetch_upstream.sh
+          ../engine/fetch_upstream.sh
+          echo "GENERALS_ENGINE_ROOT=$GITHUB_WORKSPACE/engine/upstream" >> $GITHUB_ENV
+
       - name: Build (debug + release)
         run: gradle --no-daemon :app:assembleDebug :app:assembleRelease
 
