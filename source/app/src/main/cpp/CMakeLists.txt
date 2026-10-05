@@ -40,10 +40,25 @@ if(NOT GENERALS_ENGINE_ROOT)
 endif()
 
 # ——— Real engine build ———
-# The upstream root CMakeLists (patched, see engine/port/patches) activates
-# the port block when ANDROID is set, and adds engine/port as the
-# `generals_android` target (OUTPUT_NAME "generals") with the JNI glue.
-# NOTE: no EXCLUDE_FROM_ALL — AGP only accepts targets that participate in
-# `all`; excluded targets are invisible to the gradle `targets` spec.
+# The upstream root CMakeLists (patched, see engine/port/patches) switches the
+# whole tree onto the POSIX-backed Win32 shim (engine/port/win32shim): _WIN32
+# gates + force-included portsystem.h. Those directory-scope settings are
+# replayed HERE so both the upstream tree and the port layer (a sibling scope)
+# receive identical flags (the patched upstream root does the same internally).
 message(STATUS "Linking upstream engine from ${GENERALS_ENGINE_ROOT}")
+add_compile_definitions(_WIN32 WIN32 GENERALS_PORT)
+include_directories(
+    "${GENERALS_ENGINE_ROOT}/../port/win32shim"
+    "${GENERALS_ENGINE_ROOT}/Dependencies/Utility"
+    "${GENERALS_ENGINE_ROOT}/Dependencies/DbgHelp"
+)
+add_compile_options("-include" "${GENERALS_ENGINE_ROOT}/../port/win32shim/portsystem.h")
 add_subdirectory(${GENERALS_ENGINE_ROOT} generals-engine)
+
+# The Android port layer (engine/port) defines `generals_android`
+# (OUTPUT_NAME "generals") — the JNI glue + win32shim + engine bootstrap.
+# It is added HERE (top-level scope) because AGP's `targets` spec can only
+# address targets visible at the project root it configures.
+set(GENERALS_PORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../engine/port")
+message(STATUS "Adding Android port layer from ${GENERALS_PORT_DIR}")
+add_subdirectory(${GENERALS_PORT_DIR} generals-android-port)

@@ -64,18 +64,6 @@
      include(cmake/dx8.cmake)
  endif()
  
-@@ -102,3 +117,9 @@
- 
- feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
- feature_summary(WHAT DISABLED_FEATURES DESCRIPTION "Disabled features:")
-+
-+# —— obsifox Android port (engine/port) — see engine/port/patches/ ——
-+if(ANDROID OR GENERALS_PORT_HOST)
-+    set(GENERALS_PORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../port" CACHE PATH "Android port layer")
-+    # no EXCLUDE_FROM_ALL: AGP's gradle `targets` spec cannot address
-+    # targets that are excluded from `all` (configure-time visibility).
-+    add_subdirectory(${GENERALS_PORT_DIR} generals-android)
-+endif()
 --- /home/z/my-project/GeneralsAndroid-Source/engine/upstream-pristine/cmake/config-build.cmake 2026-10-04 06:33:38.000000000 +0000
 +++ /home/z/my-project/GeneralsAndroid-Source/engine/upstream/cmake/config-build.cmake  2026-10-05 01:37:44.881864255 +0000
 @@ -62,7 +62,9 @@
