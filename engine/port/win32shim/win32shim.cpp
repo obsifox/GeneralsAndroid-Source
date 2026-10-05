@@ -26,7 +26,10 @@
 // ---------------------------------------------------------------------------
 // Critical sections
 // ---------------------------------------------------------------------------
-extern "C" {
+// NOTE: NO extern "C" here — windows.h declares the whole Win32 surface with
+// C++ linkage, and the definitions must match exactly (a mismatch is a hard
+// "different language linkage" error under clang).
+// ---------------------------------------------------------------------------
 
 void InitializeCriticalSection(CRITICAL_SECTION* cs) {
     pthread_mutexattr_t attr;
@@ -76,7 +79,7 @@ HANDLE CreateThread(void*, size_t, LPTHREAD_START_ROUTINE start, void* param,
         return nullptr;
     }
     if (tid) *tid = static_cast<DWORD>(t->tid); // real id set by caller context if needed
-    return t;
+    return reinterpret_cast<HANDLE>(t);
 }
 
 HANDLE GetCurrentThread(void) { return (HANDLE)(long long)-2; }
@@ -85,7 +88,7 @@ DWORD GetCurrentProcessId(void) { return static_cast<DWORD>(getpid()); }
 
 BOOL CloseHandle(HANDLE h) {
     if (!h || h == (HANDLE)(long long)-1 || h == (HANDLE)(long long)-2) return TRUE;
-    delete static_cast<Win32ShimThread_*>(h);
+    delete reinterpret_cast<Win32ShimThread_*>(h);
     return TRUE;
 }
 
@@ -130,7 +133,7 @@ HANDLE CreateEventA(void*, BOOL manual, BOOL initial, const char*) {
     pthread_cond_init(&e->cond, nullptr);
     e->manual = manual;
     e->signaled = initial;
-    return e;
+    return reinterpret_cast<HANDLE>(e);
 }
 
 HANDLE CreateEventW(void* attr, BOOL manual, BOOL initial, const wchar_t*) {
@@ -833,5 +836,3 @@ BOOL FlushFileBuffers(HANDLE h) {
 // ---------------------------------------------------------------------------
 void ExitProcess(UINT code) { exit(code); }
 BOOL TerminateProcess(HANDLE, UINT code) { exit(code); return TRUE; }
-
-} // extern "C"

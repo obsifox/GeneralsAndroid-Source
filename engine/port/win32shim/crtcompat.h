@@ -22,6 +22,12 @@
     memalign(((alignment) < sizeof(void*)) ? sizeof(void*) : (alignment), (size))
 #define _aligned_free(ptr) free(ptr)
 
+/* libc++ sees _WIN32 and would take its Win32 locale backend
+   (__support/win32/locale_win32.h), which conflicts with bionic's locale_t
+   and needs CRT APIs bionic does not have. The engine never imbues locales;
+   disabling libc++ localization removes that whole surface. */
+#define _LIBCPP_HAS_NO_LOCALIZATION 1
+
 #endif /* __ANDROID__ && _WIN32 */
 
 #endif /* GENERALS_PORT_CRT_COMPAT_H */

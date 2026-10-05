@@ -21,6 +21,30 @@ add_library(generals_android SHARED
     "${GENERALS_PORT_DIR}/android/AndroidGameEngine.cpp"
 )
 
+# The engine targets keep most include roots PRIVATE (they only need them for
+# their own TUs); the port layer compiles PreRTS.h-based sources too, so the
+# same roots are replayed here explicitly.
+if(DEFINED GENERALS_ENGINE_ROOT AND EXISTS "${GENERALS_ENGINE_ROOT}/Core")
+    set(GENERALS_ENGINE_INCLUDE_ROOTS
+        "${GENERALS_ENGINE_ROOT}/Core/GameEngine/Include"
+        "${GENERALS_ENGINE_ROOT}/Core/GameEngine/Include/Precompiled"
+        "${GENERALS_ENGINE_ROOT}/Core/GameEngineDevice/Include"
+        "${GENERALS_ENGINE_ROOT}/Core/Libraries/Include"
+        "${GENERALS_ENGINE_ROOT}/Core/Libraries/Include/Precompiled"
+        "${GENERALS_ENGINE_ROOT}/Core/Libraries/Source/WWVegas"
+        "${GENERALS_ENGINE_ROOT}/Dependencies/Utility"
+        "${GENERALS_ENGINE_ROOT}/Dependencies/Precompiled"
+        "${GENERALS_ENGINE_ROOT}/GeneralsMD/Code/GameEngine/Include"
+        "${GENERALS_ENGINE_ROOT}/GeneralsMD/Code/GameEngine/Include/Precompiled"
+        "${GENERALS_ENGINE_ROOT}/GeneralsMD/Code/Libraries/Source/WWVegas"
+    )
+    foreach(_d IN LISTS GENERALS_ENGINE_INCLUDE_ROOTS)
+        if(EXISTS "${_d}")
+            target_include_directories(generals_android PRIVATE "${_d}")
+        endif()
+    endforeach()
+endif()
+
 if(ANDROID)
     target_sources(generals_android PRIVATE
         "${GENERALS_PORT_DIR}/jni/generals_jni.cpp"
